@@ -1,0 +1,168 @@
+
+@mixin gradient-vertical($from, $to){
+  background: $from; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: -moz-linear-gradient(top, $from 0%, $to 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $from 0%,$to 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $from 0%,$to 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $from 0%,$to 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); /* IE6-8 */
+}
+
+
+// ------------------------------------------------------
+
+
+@import "normalize.css";
+
+$bg_color: #eee;
+$main_color: #2a2a2a;
+$main_color2: #2f77ba;
+// $main_color: #ff9c00;
+
+$text_color: #313131;
+
+$border_color: #ddd;
+
+body{
+	font-family: sans-serif;
+	font-size: 16px;
+	color: $text_color;
+	background: $bg_color;
+
+	@media (max-width: 999px){
+		font-size: 14px;
+	}
+	@media (max-width: 767px){
+		font-size: 12px;
+	}
+}
+
+a{
+	color: $main_color2;
+	&:hover{ color: lighten($main_color2, 10); }
+	&:active{ color: darken($main_color2, 10); }
+}
+
+h1,h2,h3,h4{
+  color: $main_color;
+}
+
+.width{
+	width: 1000px;
+	margin: 0 auto;
+
+	@media (max-width: 999px){
+		width: auto;
+		margin: 10px;
+	}
+}
+
+header{
+	padding: 1em 0;
+
+	.top-login{
+		float: right;
+		a{
+			text-decoration: none;
+			border-bottom: 1px dashed $main_color2;
+			border-color: $main_color2; 
+			&:hover{ border-color: lighten($main_color2, 10); }
+			&:active{ border-color: darken($main_color2, 10); }
+		}
+	}
+}
+
+@mixin incident-block($color, $icon: false){
+	@include gradient-vertical(lighten($color, 45), lighten($color, 40));
+	border-color: lighten($color, 35);
+	padding-right: 120px;
+
+	@if($icon){
+		&:after{
+			color: darken($color, 30);
+			content: $icon;
+			position: absolute;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 100px;
+			border-left: 1px solid lighten($color, 35);
+			text-align: center;
+			font-size: 60px;
+			text-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+			line-height: 1.55em;
+		}
+	}
+}
+
+.main{
+	.tabs{
+		margin: 1em 0;
+		padding: 0 10px;
+		border-bottom: 1px solid darken($border_color, 20);
+		.tab{
+			display: inline-block;
+			box-sizing: border-box;
+			border-radius: 5px 5px 0 0;
+			border: 1px solid $border_color;
+			border-bottom: none;
+			background: #fcfcfc;
+
+			padding: 1em 2em;
+			text-decoration: none;
+			font-size: 1.4em;
+
+			box-shadow: inset 0px -15px 20px -20px rgba(0,0,0,0.4);
+
+			&.active{
+				border-top: 3px solid $main_color2;
+				background: white;
+				font-weight: bold;
+				box-shadow: none;
+			}
+
+
+			@media (max-width: 767px){
+				padding: 0.5em 1em;
+			}
+		}
+	}
+
+	.incidents{
+		.block{
+			position: relative;
+
+			border-radius: 10px;
+			border: 1px solid $border_color;
+
+			background: white;
+			box-shadow: 0 5px 10px 0px rgba(0,0,0,0.1);
+
+			margin-bottom: 1em;
+			padding: 2em 2em;
+
+			h3{
+				font-size: 2em;
+			}
+
+			@include incident-block(#909090);
+			&.something-bad{
+				@include incident-block(#f00, "!");
+			}
+			&.something-good{
+				@include incident-block(#0f0, "><");
+			}
+			&.general-info{
+				@include incident-block(#00f, "?");
+			}
+		}
+	}
+}
+
+footer{
+	margin-top: 2em;
+	text-align: right;
+}
