@@ -76,9 +76,18 @@ header{
 }
 
 @mixin incident-block($color, $icon: false){
-	@include gradient-vertical(lighten($color, 45), lighten($color, 40));
+	background: lighten($color, 45);
 	border-color: lighten($color, 35);
 	padding-right: 120px;
+
+	position: relative;
+
+	border: 1px solid $border_color;
+
+	box-shadow: 0 5px 10px 0px rgba(100,100,100, 0.1);
+
+	margin-bottom: 1em;
+	padding: 2em 2em;
 
 	@if($icon){
 		&:after{
@@ -133,30 +142,19 @@ header{
 
 	.incidents{
 		.block{
-			position: relative;
-
-			border-radius: 10px;
-			border: 1px solid $border_color;
-
-			background: white;
-			box-shadow: 0 5px 10px 0px rgba(0,0,0,0.1);
-
-			margin-bottom: 1em;
-			padding: 2em 2em;
-
 			h3{
 				font-size: 2em;
 			}
 
 			@include incident-block(#909090);
 			&.something-bad{
-				@include incident-block(#f00, "!");
+				@include incident-block(#f00);
 			}
 			&.something-good{
-				@include incident-block(#0f0, "><");
+				@include incident-block(#0f0);
 			}
 			&.general-info{
-				@include incident-block(#00f, "?");
+				@include incident-block(#00f);
 			}
 		}
 	}
