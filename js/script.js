@@ -106,4 +106,11 @@ $(function(){
         }
     }
   });
+
+
+  //----------------------
+
+  $("#toggle-sidebar").on("click", function(){
+    $(this).closest(".sidebar").toggleClass("right");
+  });
 });
